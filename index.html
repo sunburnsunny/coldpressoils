@@ -1,1 +1,206 @@
-<b> hello </b>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coming Soon</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      background: linear-gradient(135deg, #111827, #1e293b);
+      padding: 24px;
+    }
+
+    .container {
+      max-width: 650px;
+      width: 100%;
+    }
+
+    .icon {
+      font-size: 52px;
+      margin-bottom: 24px;
+    }
+
+    .tag {
+      color: #38bdf8;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(38px, 8vw, 64px);
+      margin-bottom: 20px;
+      letter-spacing: -2px;
+    }
+
+    p {
+      color: #cbd5e1;
+      line-height: 1.7;
+      font-size: 16px;
+      margin-bottom: 32px;
+    }
+
+    .timer {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 35px 0;
+    }
+
+    .time-box {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      padding: 22px 8px;
+    }
+
+    .time-box span {
+      display: block;
+      font-size: clamp(24px, 5vw, 38px);
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .time-box small {
+      color: #94a3b8;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #cbd5e1;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #38bdf8;
+      box-shadow: 0 0 12px #38bdf8;
+    }
+
+    footer {
+      margin-top: 55px;
+      color: #64748b;
+      font-size: 12px;
+    }
+
+    @media (max-width: 420px) {
+      .timer {
+        gap: 6px;
+      }
+
+      .time-box {
+        padding: 18px 4px;
+      }
+
+      .time-box small {
+        font-size: 9px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+    <div class="icon" aria-hidden="true">🛠️</div>
+
+    <div class="tag">Something exciting is coming</div>
+
+    <h1>We're Building Something Great.</h1>
+
+    <p>
+      Our website is currently under construction.
+      We're working hard to bring you something amazing.
+      Stay tuned — we'll be launching soon!
+    </p>
+
+    <div class="timer" aria-label="Countdown to launch">
+      <div class="time-box">
+        <span id="days">00</span>
+        <small>Days</small>
+      </div>
+      <div class="time-box">
+        <span id="hours">00</span>
+        <small>Hours</small>
+      </div>
+      <div class="time-box">
+        <span id="minutes">00</span>
+        <small>Minutes</small>
+      </div>
+      <div class="time-box">
+        <span id="seconds">00</span>
+        <small>Seconds</small>
+      </div>
+    </div>
+
+    <div class="status">
+      <span class="dot"></span>
+      Website under construction
+    </div>
+
+    <footer>
+      © <span id="year"></span> Your Website. All rights reserved.
+    </footer>
+  </main>
+
+  <script>
+    // Change this to your planned launch date.
+    const launchDate = new Date("2026-12-31T00:00:00");
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    function updateTimer() {
+      const now = new Date();
+      const difference = launchDate.getTime() - now.getTime();
+
+      if (difference <= 0) {
+        document.querySelector(".timer").innerHTML =
+          "<p>We're live! Welcome to our website.</p>";
+        document.querySelector(".status").innerHTML =
+          '<span class="dot"></span> Launch time reached';
+        return;
+      }
+
+      document.getElementById("days").textContent =
+        String(Math.floor(difference / 86400000)).padStart(2, "0");
+
+      document.getElementById("hours").textContent =
+        String(Math.floor(difference / 3600000) % 24).padStart(2, "0");
+
+      document.getElementById("minutes").textContent =
+        String(Math.floor(difference / 60000) % 60).padStart(2, "0");
+
+      document.getElementById("seconds").textContent =
+        String(Math.floor(difference / 1000) % 60).padStart(2, "0");
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  </script>
+</body>
+</html>
